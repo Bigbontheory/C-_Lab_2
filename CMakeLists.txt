@@ -11,5 +11,4 @@ endif()
 
 project ("C++_Lab_2")
 
-# Включите подпроекты.
-add_subdirectory ("C++_Lab_2")
+add_subdirectory("src")
