@@ -13,7 +13,7 @@ public:
 
 	// getters
 	const T& get(int index) const;
-	T get_size() const;
+	int get_size() const;
 
 	//operations
 	void set (int index, const T& value);
