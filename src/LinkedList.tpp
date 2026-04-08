@@ -1,6 +1,6 @@
 #pragma once 
 
-#include "LinkedList.hpp"
+#include "linkedlist.hpp"
 #include <stdedxcept>
 
 template<typename T>
@@ -240,7 +240,7 @@ const T& LinkedList<T>::get(int index) const {
 }
 
 template <typename T>
-LinkedList<T>* LinkedList<T>::get_sublist(int startindex, int endindex) const {
+LinkedList<T>* LinkedList<T>::get_sublist(int start_index, int end_index) const {
     if (startindex < 0 || endindex > size || startindex > endindex) {
         throw std::out_of_range("Index out of range");
     }

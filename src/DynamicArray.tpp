@@ -1,6 +1,6 @@
 #pragma once
 
-#include "DynamicArray.hpp"
+#include "dynamicarray.hpp"
 #include <stdexcept>
 
 template <typename T>
@@ -17,7 +17,7 @@ DynamicArray<T>::DynamicArray(int size) :data(nullptr), size(size), capacity(siz
 }
 
 template <typename T>
-DynamicArray<T>::DynamicArray(T* item, int count) : data(nullptr), size (count), capacity(count) {
+DynamicArray<T>::DynamicArray(const T* item, int count) : data(nullptr), size (count), capacity(count) {
 	if (count < 0) {
 		throw std::invalid_argument("count cannot be negative");
 	}
@@ -33,7 +33,7 @@ DynamicArray<T>::DynamicArray(T* item, int count) : data(nullptr), size (count),
 	}
 }
 
-template <typename T>
+template <typename T> //TODO: можем быть косяк с утечкой памяти, надо будет проверить до сдачи не забыть, щас другое важнее
 DynamicArray<T>::DynamicArray(const DynamicArray<T>& other) : data(nullptr),  size(other.size), capacity(other.capacity) {
 	if (this->capacity > 0) {
 		this->data = new T[this->capacity];
@@ -42,6 +42,17 @@ DynamicArray<T>::DynamicArray(const DynamicArray<T>& other) : data(nullptr),  si
 		this->data[i] = other.data[i];
 	}
 }
+
+template <typename T>
+DynamicArray<T>::DynamicArray(DynamicArray<T>&& other) noexcept
+	: data(other.data), size(other.size), capacity(other.capacity) {
+
+	other.data = nullptr;
+	other.size = 0;
+	other.capacity = 0;
+}
+
+
 
 template <typename T> 
 DynamicArray<T>::~DynamicArray() {
@@ -76,6 +87,22 @@ DynamicArray<T>& DynamicArray<T>::operator=(const DynamicArray<T>& other) {
     this->capacity = other.capacity;
 
     return *this;
+}
+
+template <typename T>
+DynamicArray<T>& DynamicArray<T>::operator=(DynamicArray<T>&& other) noexcept {
+	if (this != &other) {
+		delete[] data;
+
+		data = other.data;
+		size = other.size;
+		capacity = other.capacity;
+
+		other.data = nullptr;
+		other.size = 0;
+		other.capacity = 0;
+	}
+	return *this;
 }
 
 template <typename T>

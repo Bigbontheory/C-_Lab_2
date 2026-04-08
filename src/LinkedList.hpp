@@ -16,8 +16,8 @@ public:
 	const T& get_last() const;
 	const T& get(int index) const;
 	int get_length() const;
-	LinkedList<T>* get_sublist(int startindex, int endindex) const;
-
+	
+	LinkedList<T>* get_sublist(int start_index, int end_index) const;
 
 	void append(const T& item);
 	void prepend(const T& item);
@@ -43,4 +43,4 @@ private:
 
 
 
-#include "LinkedLIist.tpp"
+#include "linkedlist.tpp"

@@ -6,10 +6,12 @@ public:
 	DynamicArray();
 	explicit DynamicArray(int size);
 	DynamicArray(T* items, int count);
-	DynamicArray(const DynamicArray<T>& other); 
+	DynamicArray(const DynamicArray<T>& other);
+	DynamicArray(DynamicArray<T>&& other) noexcept;
 	~DynamicArray();
 
 	DynamicArray<T>& operator=(const DynamicArray<T>& other);
+	DynamicArray<T>& operator=(DynamicArray<T>&& other) noexcept;
 
 	// getters
 	const T& get(int index) const;
@@ -18,12 +20,12 @@ public:
 	//operations
 	void set (int index, const T& value);
 	void resize(int new_size);
-	void remove_at(int index)
+	void remove_at(int index);
 
-private: 
+private:
 	T* data;
 	int size;
 	int capacity;
 };
 
-#include "DynamicArray.tpp"
+#include "dynamicarray.tpp"
