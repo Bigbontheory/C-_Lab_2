@@ -192,10 +192,6 @@ Option<T> Sequence<T>::try_get(int index) const {
     return Option<T>(this->get(index));
 }
 
-template <class T>
-Option<T> Sequence<T>::try_get_first() const {
-    return this->try_get(0);
-}
 
 template <class T>
 Option<T> Sequence<T>::try_get_last() const {
