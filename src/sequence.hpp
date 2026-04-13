@@ -1,10 +1,10 @@
 #pragma once
 
 #include <stdexcept>
-#include "option.hpp"
 #include "ienumerable.hpp"
 #include "icollection.hpp"
 #include "isequencebuilder.hpp"
+#include "option.hpp"
 
 
 template<typename T>
@@ -18,9 +18,9 @@ public:
 	virtual const T& get_last() const = 0;
 	const T& operator[](int index) const { return this->get(index); }
 
-	virtual Option<T> try_get_first() const = 0;
-	virtual Option<T> try_get_last() const = 0;
-	virtual Option<T> try_get(int index) const = 0;
+	virtual Option<T> try_get_first() const;
+	virtual Option<T> try_get_last() const;
+	virtual Option<T> try_get(int index) const;
 	
 	virtual Sequence<T>* get_subsequence(int start_index, int end_index) const;
 	
@@ -32,7 +32,7 @@ public:
 	virtual Sequence<T>* concat(const Sequence<T>* other) const;
 	virtual Sequence<T>* map (T(*mapper)(const T& elem)) const;
 	virtual Sequence<T>* where (bool (*predicate)(const T& elem)) const;
-	virtual T reduce(T(*func) (const T& first_elem, const T& second_elem), const T& initial_elem) const;
+	virtual T reduce(T(*func) (const T& first_elem, const T& second_elem), const T& initial_elem) const = 0;
 	virtual Sequence<T>* slice(int index, int count, const Sequence<T>* elements = nullptr) const;
 
 	virtual IEnumerator<T>* get_enumerator() const override = 0;

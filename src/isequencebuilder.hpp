@@ -8,3 +8,4 @@ public:
 	virtual void append(const T & item) = 0;
 	virtual Sequence<T>* build() = 0;
 };
+

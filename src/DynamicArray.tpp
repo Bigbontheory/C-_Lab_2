@@ -33,7 +33,7 @@ DynamicArray<T>::DynamicArray(const T* item, int count) : data(nullptr), size (c
 	}
 }
 
-template <typename T> //TODO: можем быть косяк с утечкой памяти, надо будет проверить до сдачи не забыть, щас другое важнее
+template <typename T>
 DynamicArray<T>::DynamicArray(const DynamicArray<T>& other) : data(nullptr),  size(other.size), capacity(other.capacity) {
 	if (this->capacity > 0) {
 		this->data = new T[this->capacity];

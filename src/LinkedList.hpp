@@ -8,10 +8,6 @@ public:
 	LinkedList(const LinkedList& list);
 	~LinkedList();
 
-	LinkedList& operator=(const LinkedList& other);
-	LinkedList (LinkedList&& other) noexcept;
-	LinkedList& operator=(LinkedList&& other) noexcept;
-
 	const T& get_first() const;
 	const T& get_last() const;
 	const T& get(int index) const;
@@ -40,7 +36,5 @@ private:
 	int size;
 
 };
-
-
 
 #include "linkedlist.tpp"

@@ -72,30 +72,6 @@ LinkedList<T>::LinkedList(const LinkedList<T>& other) : LinkedList() {
 }
 
 template <typename T>
-LinkedList<T>::LinkedList(LinkedList&& other) noexcept : head(other.head), tail(other.tail), size(other.size) {
-    other.head = nullptr;
-    other.tail = nullptr;
-    other.size = 0;
-}
-
-template <typename T>
-LinkedList<T>& LinkedList<T>::operator=(LinkedList<T>&& other) noexcept {
-    if (this != &other) {
-        clear();
-
-        head = other.head;
-        tail = other.tail;
-        size = other.size;
-
-        other.head = nullptr;
-        other.tail = nullptr;
-        other.size = 0;
-    }
-    return *this;
-}
-
-
-template <typename T>
 LinkedList<T>::~LinkedList() {
     this->clear();
 }
@@ -228,15 +204,6 @@ void LinkedList<T>::remove_at(int index) {
     }
     size--;
     delete node_to_delete;
-}
-
-template <typename T>
-const T& LinkedList<T>::get(int index) const {
-    if (index < 0 || index >= size) {
-        throw std::out_of_range("LinkedList: Index out of range");
-    }
-
-    return get_node(index)->value;
 }
 
 template <typename T>

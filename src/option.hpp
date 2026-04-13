@@ -15,7 +15,7 @@ public:
     bool is_none() const {
         return !has_value_;
     }
-    
+
     const T& get_value() const {
         if (!has_value_) {
             throw std::runtime_error("get_value: Option has no value");
@@ -28,3 +28,4 @@ private:
     T value;
     bool has_value_;
 };
+
