@@ -34,8 +34,6 @@ public:
     virtual Sequence<T>* append(const T& item) override;
     virtual Sequence<T>* prepend(const T& item) override;
     virtual Sequence<T>* insert_at(const T& item, int index) override;
-
-    virtual const T& operator[](int index) const override;
-
+};
 
 #include "listsequence.tpp"

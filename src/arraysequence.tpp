@@ -167,8 +167,3 @@ template <typename T>
 Sequence<T>* ArraySequence<T>::insert_at(const T& item, int index) {
     return this->instance()->insert_at_internal(item, index);
 }
-
-template <typename T>
-const T& ArraySequence<T>::operator[](int index) const {
-    return this->get(index);
-}

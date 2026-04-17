@@ -8,8 +8,6 @@ template <typename T>
 class ArraySequence : public Sequence<T> {
 protected:
     DynamicArray<T>* items;
-
-    virtual ArraySequence<T>* get_instance() = 0;
     virtual ArraySequence<T>* instance() = 0;
 
     Sequence<T>* append_internal(const T& item);
@@ -34,8 +32,6 @@ public:
     const T& get(int index) const override;
     int get_size() const override;
 
-    const T& operator[](int index) const override { return this->get(index); }
-
     Sequence<T>* append(const T& item) override;
     Sequence<T>* prepend(const T& item) override;
     Sequence<T>* insert_at(const T& item, int index) override;
@@ -44,4 +40,4 @@ public:
     IEnumerator<T>* get_enumerator() const override;
 };
 
-#include "arraysequence.hpp"
+#include "arraysequence.tpp"

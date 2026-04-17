@@ -5,7 +5,7 @@ class DynamicArray {
 public: 
 	DynamicArray();
 	explicit DynamicArray(int size);
-	DynamicArray(T* items, int count);
+	DynamicArray(const T* items, int count);
 	DynamicArray(const DynamicArray<T>& other);
 	DynamicArray(DynamicArray<T>&& other) noexcept;
 	~DynamicArray();

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <stdexcept>
-#include "listsequence.hpp"
 
 template <typename T>
 class ListEnumerator : public IEnumerator<T> {
@@ -64,13 +63,14 @@ ListSequence<T>::~ListSequence() {
 template <typename T>
 const T& ListSequence<T>::get(int index) const {
     if (index < 0 || index >= this->get_size()) {
-        throw std::out_of_range("Index out of range")
+        throw std::out_of_range("Index out of range");
     }
     IEnumerator<T>* en = this->get_enumerator();
     for (int i = 0; i <= index; ++i) {
         en->move_next();
     }
     const T& value = en->get_current();
+    delete en;
     return value;
 }
 
@@ -125,11 +125,6 @@ Sequence<T>* ListSequence<T>::remove_at(int index) {
 }
 
 template <typename T>
-const T& ListSequence<T>::operator[](int index) const {
-    return this->get(index);
-}
-
-template <typename T>
 const T& ListSequence<T>::get_first() const {
     if (this->get_size() == 0) {
         throw std::out_of_range("Index out of range");
@@ -144,13 +139,4 @@ const T& ListSequence<T>::get_last() const {
     }
     return items->get_last();
 }
-
-template <typename T>
-const T& ListSequence<T>::get(int index) const {
-    if (index < 0 || index >= this->get_size()) {
-        throw std::out_of_range("Index out of range");
-    }
-    return items->get(index);
-}
-
 

@@ -31,10 +31,9 @@ public:
 	
 	virtual Sequence<T>* concat(const Sequence<T>* other) const;
 	virtual Sequence<T>* map (T(*mapper)(const T& elem)) const;
-	Sequence<T>* Sequence<T>::where(bool (*predicate)(const T&)) const;
-	T Sequence<T>::reduce(T(*reducer)(const T&, const T&), const T& initial_value) const;
-	virtual Sequence<T>* slice(int index, int count, const Sequence<T>* elements = nullptr) const;
-
+	virtual Sequence<T>* where(bool (*predicate)(const T&)) const;
+	virtual T reduce(T(*reducer)(const T&, const T&), const T& initial_value) const;
+	
 	virtual IEnumerator<T>* get_enumerator() const override = 0;
 	
 	virtual ISequenceBuilder<T>* create_builder() const = 0;

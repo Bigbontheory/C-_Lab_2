@@ -1,7 +1,7 @@
 #pragma once 
 
 #include "linkedlist.hpp"
-#include <stdedxcept>
+#include <stdexcept>
 
 template<typename T>
 typename LinkedList<T>::Node* LinkedList<T>::get_node(int index) const {
@@ -207,7 +207,7 @@ void LinkedList<T>::remove_at(int index) {
 }
 
 template <typename T>
-LinkedList<T>* LinkedList<T>::get_sublist(int start_index, int end_index) const {
+LinkedList<T>* LinkedList<T>::get_sublist(int startindex, int endindex) const {
     if (startindex < 0 || endindex > size || startindex > endindex) {
         throw std::out_of_range("Index out of range");
     }
@@ -230,7 +230,7 @@ LinkedList<T>* LinkedList<T>::get_sublist(int start_index, int end_index) const 
 }
 
 template <typename T>
-int LinkedList<T>::get_size() const { return this->size };
+int LinkedList<T>::get_size() const { return this->size; }
 
 template <typename T>
 const T& LinkedList<T>::get_first() const {

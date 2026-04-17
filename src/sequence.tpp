@@ -4,59 +4,6 @@
 #include "sequence.hpp"
 
 template <typename T>
-Sequence<T>* Sequence<T>::slice(int index, int count, const Sequence<T>* elements) const {
-    int len = this->get_size();
-    int start = (index < 0) ? (len + index) : index;
-    if (start < 0 || start > len) throw std::out_of_range("Slice: out of range");
-    if (count < 0) count = 0;
-    if (start + count > len) count = len - start;
-
-    ISequenceBuilder<T>* builder = this->create_builder();
-    IEnumerator<T>* it = this->get_enumerator();
-    IEnumerator<T>* el_it = nullptr;
-
-    try {
-        int curr_idx = 0;
-        while (it->move_next()) {
-            const auto& item = it->get_current();
-            if (curr_idx == start && elements) {
-                el_it = elements->get_enumerator();
-                while (el_it->move_next()) {
-                    builder->append(el_it->get_current());
-                }
-                delete el_it;
-                el_it = nullptr;
-            }
-            if (curr_idx < start || curr_idx >= start + count) {
-                builder->append(item);
-            }
-            curr_idx++;
-        }
-
-        if (start == len && elements) {
-            el_it = elements->get_enumerator();
-            while (el_it->move_next()) {
-                builder->append(el_it->get_current());
-            }
-            delete el_it;
-            el_it = nullptr;
-        }
-
-        Sequence<T>* result = builder->build();
-        delete builder;
-        delete it;
-        return result;
-
-    }
-    catch (...) {
-        delete builder;
-        delete it;
-        if (el_it) delete el_it;
-        throw;
-    }
-}
-
-template <typename T>
 Sequence<T>* Sequence<T>::map(T(*mapper)(const T& elem)) const {
     ISequenceBuilder<T>* builder = this->create_builder();
     IEnumerator<T>* it = this->get_enumerator();
