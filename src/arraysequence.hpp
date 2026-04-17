@@ -17,6 +17,10 @@ protected:
     Sequence<T>* insert_at_internal(const T& item, int index);
 
 public:
+    
+    template <typename U, typename SeqType>
+    friend class SequenceBuilder;
+
     explicit ArraySequence(int size);
     ArraySequence();
     ArraySequence(T* items, int count);

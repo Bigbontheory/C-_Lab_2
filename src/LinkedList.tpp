@@ -230,6 +230,25 @@ LinkedList<T>* LinkedList<T>::get_sublist(int start_index, int end_index) const 
 }
 
 template <typename T>
+int LinkedList<T>::get_size() const { return this->size };
+
+template <typename T>
+const T& LinkedList<T>::get_first() const {
+    if (this->head == nullptr) {
+        throw std::out_of_range("List is empty");
+    }
+    return this->head->value;
+}
+
+template <typename T>
+const T& LinkedList<T>::get_last() const {
+    if (this->tail == nullptr) {
+        throw std::out_of_range("List is empty");
+    }
+    return this->tail->value;
+}
+
+template <typename T>
 LinkedList<T>* LinkedList<T>::concat(LinkedList<T>* list) const {
     LinkedList<T>* result = new LinkedList<T>(*this);
 

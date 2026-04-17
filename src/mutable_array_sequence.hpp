@@ -19,35 +19,7 @@ public:
         return new MutableArraySequence<T>(*this);
     }
 
-    class Builder : public ISequenceBuilder<T> {
-    private:
-        MutableArraySequence<T>* seq;
-
-    public:
-        Builder() {
-            seq = new MutableArraySequence<T>();
-        }
-
-        virtual ISequenceBuilder<T>* append(const T& item) override {
-            seq->append_internal(item);
-            return this;
-        }
-
-        virtual Sequence<T>* build() override {
-            Sequence<T>* res = seq;
-            seq = nullptr;
-            return res;
-        }
-
-        virtual ~Builder() {
-            if (seq) {
-                delete seq;
-            }
-        }
-
-    };
-
     virtual ISequenceBuilder<T>* create_builder() const override {
-        return new Builder();
+        return new SequenceBuilder<T, MutableArraySequence<T>>();
     }
 };

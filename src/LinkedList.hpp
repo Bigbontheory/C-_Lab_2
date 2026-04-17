@@ -1,7 +1,9 @@
-#pragma once
+	#pragma once
 template <class T>
 class LinkedList {
 
+protected:
+	Node* get_head() const { return head; }
 public:
 	LinkedList(const T* item, int count);
 	LinkedList();
@@ -10,8 +12,7 @@ public:
 
 	const T& get_first() const;
 	const T& get_last() const;
-	const T& get(int index) const;
-	int get_length() const;
+	int get_size() const;
 	
 	LinkedList<T>* get_sublist(int start_index, int end_index) const;
 
@@ -24,6 +25,7 @@ public:
 
 private:
 	struct Node {
+		friend class ListEnumerator<T>;
 		T value;
 		Node* next;
 		Node* prev;

@@ -3,7 +3,7 @@
 #include <stdexcept>
 #include "ienumerable.hpp"
 #include "icollection.hpp"
-#include "isequencebuilder.hpp"
+#include "sequencebuilder.hpp"
 #include "option.hpp"
 
 
@@ -31,8 +31,8 @@ public:
 	
 	virtual Sequence<T>* concat(const Sequence<T>* other) const;
 	virtual Sequence<T>* map (T(*mapper)(const T& elem)) const;
-	virtual Sequence<T>* where (bool (*predicate)(const T& elem)) const;
-	virtual T reduce(T(*func) (const T& first_elem, const T& second_elem), const T& initial_elem) const = 0;
+	Sequence<T>* Sequence<T>::where(bool (*predicate)(const T&)) const;
+	T Sequence<T>::reduce(T(*reducer)(const T&, const T&), const T& initial_value) const;
 	virtual Sequence<T>* slice(int index, int count, const Sequence<T>* elements = nullptr) const;
 
 	virtual IEnumerator<T>* get_enumerator() const override = 0;
