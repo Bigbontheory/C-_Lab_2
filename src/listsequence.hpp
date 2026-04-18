@@ -1,3 +1,5 @@
+#pragma once
+
 #include "sequence.hpp"
 #include "linkedlist.hpp"
 #include "ienumerator.hpp"
@@ -12,6 +14,7 @@ protected:
     Sequence<T>* append_internal(const T& item);
     Sequence<T>* prepend_internal(const T& item);
     Sequence<T>* insert_at_internal(const T& item, int index);
+    Sequence<T>* remove_at_internal(int index);
 
 public:
     template <typename U, typename SeqType>

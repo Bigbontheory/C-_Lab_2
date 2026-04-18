@@ -136,13 +136,15 @@ Sequence<T>* ArraySequence<T>::insert_at_internal(const T& item, int index) {
 }
 
 template <typename T>
-Sequence<T>* ArraySequence<T>::remove_at(int index) {
+Sequence<T>* ArraySequence<T>::remove_at_internal(int index) {
     if (index < 0 || index >= this->get_size()) {
         throw std::out_of_range("Index out of range;");
     }
     items->remove_at(index);
     return this;
 }
+
+
 
 template <typename T>
 const T& ArraySequence<T>::get(int index) const {
@@ -166,4 +168,9 @@ Sequence<T>* ArraySequence<T>::prepend(const T& item) {
 template <typename T>
 Sequence<T>* ArraySequence<T>::insert_at(const T& item, int index) {
     return this->instance()->insert_at_internal(item, index);
+}
+
+template <typename T>
+Sequence<T>* ArraySequence<T>::remove_at(int index) {
+    return this->instance()->remove_at_internal(index);
 }

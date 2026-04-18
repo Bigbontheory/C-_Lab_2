@@ -1,4 +1,3 @@
-#pragma once
 
 #include <stdexcept>
 
@@ -116,12 +115,17 @@ Sequence<T>* ListSequence<T>::insert_at(const T& item, int index) {
 }
 
 template <typename T>
-Sequence<T>* ListSequence<T>::remove_at(int index) {
+Sequence<T>* ListSequence<T>::remove_at_internal(int index) {
     if (index < 0 || index >= this->get_size()) {
         throw std::out_of_range("Index out of range");
     }
     items->remove_at(index);
     return this;
+}
+
+template <typename T>
+Sequence<T>* ListSequence<T>::remove_at(int index) {
+    return this->instance()->remove_at_internal(index);
 }
 
 template <typename T>

@@ -17,30 +17,27 @@ DynamicArray<T>::DynamicArray(int size) :data(nullptr), size(size), capacity(siz
 }
 
 template <typename T>
-DynamicArray<T>::DynamicArray(const T* item, int count) : data(nullptr), size (count), capacity(count) {
-	if (count < 0) {
-		throw std::invalid_argument("count cannot be negative");
-	}
-
-	if (item == nullptr && size > 0) {
-		throw std::invalid_argument("item cannot be nullptr");
-	}
-	
-	if (this->capacity > 0)
+DynamicArray<T>::DynamicArray(const T* item, int count) : data(nullptr), size(count), capacity(count) {
+	if (count < 0) throw std::invalid_argument("count < 0");
+	if (count > 0) {
+		if (item == nullptr) throw std::invalid_argument("item is nullptr");
 		this->data = new T[this->capacity];
-	for (int i = 0; i < this->size; ++i){
-		this->data[i] = item[i];
+		for (int i = 0; i < this->size; ++i) {
+			this->data[i] = item[i];
+		}
 	}
 }
 
 template <typename T>
-DynamicArray<T>::DynamicArray(const DynamicArray<T>& other) : data(nullptr),  size(other.size), capacity(other.capacity) {
+DynamicArray<T>::DynamicArray(const DynamicArray<T>& other)
+	: data(nullptr), size(other.size), capacity(other.capacity) {
+
 	if (this->capacity > 0) {
 		this->data = new T[this->capacity];
-	}
-	for (int i = 0; i < this->size; ++i) {
-		this->data[i] = other.data[i];
-	}
+		for (int i = 0; i < this->size; ++i) {
+			this->data[i] = other.data[i];
+		}
+	} 
 }
 
 template <typename T>
@@ -65,24 +62,24 @@ DynamicArray<T>& DynamicArray<T>::operator=(const DynamicArray<T>& other) {
         return *this;
     }
 
-    T* newData = nullptr;
+    T* new_data = nullptr;
 
     try {
         if (other.capacity > 0) {
-            newData = new T[other.capacity];
+            new_data = new T[other.capacity];
             for (int i = 0; i < other.size; ++i) {
-                newData[i] = other.data[i];
+                new_data[i] = other.data[i];
             }
         }
     } 
     catch (...) {
-        delete[] newData;
+        delete[] new_data;
         throw;
     }
 
     delete[] this->data;
 
-    this->data = newData;
+    this->data = new_data;
     this->size = other.size;
     this->capacity = other.capacity;
 
@@ -137,49 +134,49 @@ const T& DynamicArray<T>::get(int index) const {
 		data[index] = value;
 	}
 
-	template <typename T>
-	void DynamicArray<T>::resize(int new_size) {
-		if (new_size < 0) {
-			throw  std::invalid_argument("new_size cannot be negative");
-		}
-		if (new_size == 0) {
-			delete[]data;
-			data = nullptr;
-			size = 0;
-			capacity = 0;
-			return;
-		}
-		if (new_size <= capacity) {
-			if (new_size > size) {
-				for (int i = size; i < new_size; ++i) {
-					data[i] = T();
-				}
-			}
-			size = new_size;
-			return;
-		}
+    template <typename T>
+    void DynamicArray<T>::resize(int new_size) {
+        if (new_size < 0) {
+            throw std::invalid_argument("new_size cannot be negative");
+        }
 
-		int new_capacity;
-		if (new_size > capacity * 2) {
-			new_capacity = new_size;
-		}
-		else {
-			new_capacity = capacity * 2;
-		}
+        if (new_size == 0) {
+            delete[] data;
+            data = nullptr;
+            size = 0;
+            capacity = 0;
+            return;
+        }
+        if (new_size <= capacity) {
+            if (new_size > size && data != nullptr) {
+                for (int i = size; i < new_size; ++i) {
+                    data[i] = T();
+                }
+            }
+            size = new_size;
+            return;
+        }
+        int new_capacity = (capacity == 0) ? new_size : capacity * 2;
+        if (new_size > new_capacity) {
+            new_capacity = new_size;
+        }
 
-		T* new_data = new T[new_capacity]();
+        T* new_data = new T[new_capacity]();
 
-			try {
-				for (int i = 0; i < size; ++i) {
-					new_data[i] = data[i];
-				}
-			}
-		catch (...) {
-			delete[]new_data;
-			throw;
-		}
-		delete[]data;
-		data = new_data;
-		size = new_size;
-		capacity = new_capacity;
-	}
+        try {
+            if (data != nullptr) {
+                for (int i = 0; i < size; ++i) {
+                    new_data[i] = data[i];
+                }
+            }
+        }
+        catch (...) {
+            delete[] new_data;
+            throw;
+        }
+
+        delete[] data;
+        data = new_data;
+        size = new_size;
+        capacity = new_capacity;
+    }
