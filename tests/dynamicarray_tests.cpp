@@ -80,3 +80,30 @@ TEST(DynamicArrayTest, Assignment) {
     EXPECT_EQ(a.get_size(), 2);
     EXPECT_EQ(a.get(0), 1);
 }
+
+TEST(DynamicArrayTest, NestedArrays) {
+    DynamicArray<DynamicArray<int>> matrix(2);
+    matrix.set(0, DynamicArray<int>(3));
+    matrix.set(1, DynamicArray<int>(2));
+
+    matrix.get(0).set(0, 10);
+    matrix.get(0).set(1, 11);
+    matrix.get(0).set(2, 12);
+
+    matrix.get(1).set(0, 20);
+    matrix.get(1).set(1, 21);
+
+    EXPECT_EQ(matrix.get_size(), 2);
+    EXPECT_EQ(matrix.get(0).get_size(), 3);
+    EXPECT_EQ(matrix.get(1).get_size(), 2);
+
+    EXPECT_EQ(matrix.get(0).get(1), 11);
+    EXPECT_EQ(matrix.get(1).get(0), 20);
+
+    DynamicArray<DynamicArray<int>> matrixCopy = matrix;
+
+    matrixCopy.get(0).set(0, 999);
+
+    EXPECT_EQ(matrixCopy.get(0).get(0), 999);
+    EXPECT_EQ(matrix.get(0).get(0), 10);
+}

@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include "mutable_list_sequence.hpp"
 
+
 class MutableListSequenceTest : public ::testing::Test {
 protected:
     void AssertSequencesEqual(Sequence<int>* seq, const int* expected, int count) {

@@ -1,4 +1,3 @@
-#pragma once 
 
 #include "linkedlist.hpp"
 #include <stdexcept>

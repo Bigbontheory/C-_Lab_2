@@ -13,6 +13,7 @@ public:
 	DynamicArray<T>& operator=(const DynamicArray<T>& other);
 	DynamicArray<T>& operator=(DynamicArray<T>&& other) noexcept;
 
+	T& get(int index);
 	const T& get(int index) const;
 	int get_size() const;
 

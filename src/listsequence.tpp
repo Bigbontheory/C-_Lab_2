@@ -2,40 +2,6 @@
 #include <stdexcept>
 
 template <typename T>
-class ListEnumerator : public IEnumerator<T> {
-private:
-    typename LinkedList<T>::Node* head;
-    typename LinkedList<T>::Node* current;
-    bool is_started;
-
-public:
-    explicit ListEnumerator(typename LinkedList<T>::Node* head_ptr)
-        : head(head_ptr), current(nullptr), is_started(false) {
-    }
-
-    bool move_next() override {
-        if (!is_started) {
-            current = head;
-            is_started = true;
-        }
-        else if (current != nullptr) {
-            current = current->next;
-        }
-        return current != nullptr;
-    }
-
-    const T& get_current() const override {
-        if (!current) throw std::out_of_range("Enumerator: out of bounds");
-        return current->value;
-    }
-
-    void reset() override {
-        current = nullptr;
-        is_started = false;
-    }
-};
-
-template <typename T>
 IEnumerator<T>* ListSequence<T>::get_enumerator() const {
     return new ListEnumerator<T>(this->items->get_head());
 }
